@@ -1,0 +1,16 @@
+table_name = "example_table"
+region = "us-west-2"
+read_capacity = 5
+write_capacity = 5
+attribute_definitions = [
+  {
+    name = "id"
+    type = "S"
+  }
+]
+key_schema = [
+  {
+    attribute_name = "id"
+    key_type = "HASH"
+  }
+]
