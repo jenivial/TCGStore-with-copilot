@@ -2,10 +2,8 @@ using Amazon.DynamoDBv2.DataModel;
 
 namespace TCGStore.Api.Features.Cards;
 
-[DynamoDBTable("cards")]
 public class Card
 {
-    [DynamoDBHashKey]
     public required string Id { get; set; }
     public required string Name { get; set; }
     public required string SetName { get; set; }

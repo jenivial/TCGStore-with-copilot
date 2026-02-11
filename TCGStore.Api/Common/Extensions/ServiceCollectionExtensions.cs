@@ -14,24 +14,24 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // Configure DynamoDB options from appsettings and user secrets
-        services.Configure<DynamoDbOptions>(configuration.GetSection("AWS:DynamoDB"));
+        // Configure Aws options from appsettings and user secrets
+        services.Configure<AwsOptions>(configuration.GetSection("AWS"));
 
         // Register DynamoDB client
         // Uses AWS SDK's default credential chain (environment variables, profiles, IAM roles, etc.)
         services.AddSingleton<IAmazonDynamoDB>(sp => 
         {
-            var options = sp.GetRequiredService<IOptions<DynamoDbOptions>>();
+            var options = sp.GetRequiredService<IOptions<AwsOptions>>();
             var config = new AmazonDynamoDBConfig 
             { 
-                RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(options.Value.Region)
+                RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(options.Value.Region),
             };
             return new AmazonDynamoDBClient(config);
         });
         services.AddSingleton<IDynamoDBContext, DynamoDBContext>();
 
         // Register DynamoDB initializer
-        services.AddScoped<DynamoDbInitializer>();
+        services.AddScoped<CardDynamoDbInitializer>();
 
         // Register data repositories
         services.AddScoped<ICardCatalogRepository, DynamoCardRepository>();

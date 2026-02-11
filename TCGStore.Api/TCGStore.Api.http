@@ -1,5 +1,5 @@
 @TCGStore.Api_HostAddress = http://localhost:5000
-@CardId = 1
+@CardId = 0DB433FE-C7CC-46A1-B813-95D9BCC94A91
 
 ### Get all cards
 GET {{TCGStore.Api_HostAddress}}/api/cards

@@ -54,13 +54,7 @@ echo "🚀 Applying Terraform configuration with terraform.dev.tfvars..."
 terraform apply -var-file="terraform.dev.tfvars" -auto-approve
 
 # Extract Terraform outputs
-DYNAMODB_TABLE_NAME=$(terraform output -raw dynamodb_table_name 2>/dev/null || echo "")
 DYNAMODB_REGION=$(terraform output -raw aws_region 2>/dev/null || echo "us-west-2")
-
-if [ -z "$DYNAMODB_TABLE_NAME" ]; then
-    echo "⚠️  Warning: Could not retrieve DynamoDB table name from Terraform outputs"
-    exit 1
-fi
 
 echo "💾 Configuring .NET user secrets..."
 cd "$API_PROJECT_DIR"
@@ -73,8 +67,7 @@ fi
 
 # Store DynamoDB configuration in user secrets
 echo "   Setting DynamoDB configuration..."
-dotnet user-secrets set "AWS:DynamoDB:TableName" "$DYNAMODB_TABLE_NAME"
-dotnet user-secrets set "AWS:DynamoDB:Region" "$DYNAMODB_REGION"
+dotnet user-secrets set "AWS:Region" "$DYNAMODB_REGION"
 
 echo ""
 echo "========================================="

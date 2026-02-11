@@ -1,5 +1,6 @@
 using TCGStore.Api.Common.Extensions;
 using TCGStore.Api.Common.Middleware;
+using TCGStore.Api.Features.Cards.Persistence;
 using TCGStore.Api.Shared.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,7 @@ if (app.Environment.IsDevelopment())
         try
         {
             logger.LogInformation("Starting DynamoDB initialization...");
-            var initializer = scope.ServiceProvider.GetRequiredService<DynamoDbInitializer>();
+            var initializer = scope.ServiceProvider.GetRequiredService<CardDynamoDbInitializer>();
             await initializer.InitializeAsync();
             logger.LogInformation("DynamoDB initialization completed successfully.");
         }
