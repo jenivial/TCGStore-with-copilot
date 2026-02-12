@@ -1,0 +1,11 @@
+aws_region     = "us-west-2"
+table_name     = "example_table"
+billing_mode   = "PROVISIONED"
+read_capacity  = 5
+write_capacity = 5
+partition_key  = "Id"
+
+tags = {
+  Environment = "development"
+  Project     = "TCGStore"
+}

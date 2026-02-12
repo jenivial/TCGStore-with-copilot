@@ -1,0 +1,70 @@
+@TCGStore.Api_HostAddress = http://localhost:5000
+@CardId = 0DB433FE-C7CC-46A1-B813-95D9BCC94A91
+
+### Get all cards
+GET {{TCGStore.Api_HostAddress}}/api/cards
+Accept: application/json
+
+###
+
+### Get card by ID
+GET {{TCGStore.Api_HostAddress}}/api/cards/{{CardId}}
+Accept: application/json
+
+###
+
+### Create a new card
+POST {{TCGStore.Api_HostAddress}}/api/cards
+Content-Type: application/json
+
+{
+  "name": "Black Lotus",
+  "setName": "Limited Edition Alpha",
+  "setCode": "LEA",
+  "collectorNumber": 1,
+  "rarity": "Rare",
+  "price": 10000.00,
+  "imageUrl": "https://example.com/black-lotus.jpg",
+  "description": "Add three mana of any one color to your mana pool."
+}
+
+###
+
+### Create another card
+POST {{TCGStore.Api_HostAddress}}/api/cards
+Content-Type: application/json
+
+{
+  "name": "Charizard",
+  "setName": "Base Set",
+  "setCode": "BS",
+  "collectorNumber": 4,
+  "rarity": "Holographic Rare",
+  "price": 5000.00,
+  "imageUrl": "https://example.com/charizard.jpg",
+  "description": "Fire-breathing dragon Pokémon card."
+}
+
+###
+
+### Update a card
+PUT {{TCGStore.Api_HostAddress}}/api/cards/{{CardId}}
+Content-Type: application/json
+
+{
+  "name": "Black Lotus",
+  "setName": "Limited Edition Alpha",
+  "setCode": "LEA",
+  "collectorNumber": 1,
+  "rarity": "Rare",
+  "price": 12000.00,
+  "imageUrl": "https://example.com/black-lotus-updated.jpg",
+  "description": "Add three mana of any one color to your mana pool. Updated price."
+}
+
+###
+
+### Delete a card
+DELETE {{TCGStore.Api_HostAddress}}/api/cards/{{CardId}}
+
+###
