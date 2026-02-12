@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using TCGStore.Api.Features.Cards.Persistence;
 
 namespace TCGStore.Api.Features.Cards;

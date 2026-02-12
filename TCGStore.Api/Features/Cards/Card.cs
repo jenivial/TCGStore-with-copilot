@@ -1,5 +1,3 @@
-using Amazon.DynamoDBv2.DataModel;
-
 namespace TCGStore.Api.Features.Cards;
 
 public class Card

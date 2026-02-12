@@ -1,7 +1,6 @@
 using TCGStore.Api.Common.Extensions;
 using TCGStore.Api.Common.Middleware;
 using TCGStore.Api.Features.Cards.Persistence;
-using TCGStore.Api.Shared.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

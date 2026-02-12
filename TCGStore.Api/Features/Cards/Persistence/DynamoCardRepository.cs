@@ -1,6 +1,4 @@
-using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 
 namespace TCGStore.Api.Features.Cards.Persistence;
 

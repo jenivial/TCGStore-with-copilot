@@ -1,7 +1,4 @@
-using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.Model;
-using Microsoft.Extensions.Options;
 
 namespace TCGStore.Api.Features.Cards.Persistence;
 
@@ -45,20 +42,6 @@ public class CardDynamoDbInitializer(IDynamoDBContext context, ILogger<CardDynam
             };
             foreach (var card in testCards)
             {
-                var item = new Dictionary<string, AttributeValue>
-                {
-                    ["Id"] = new AttributeValue { S = card.Id },
-                    ["Name"] = new AttributeValue { S = card.Name },
-                    ["SetName"] = new AttributeValue { S = card.SetName },
-                    ["SetCode"] = new AttributeValue { S = card.SetCode },
-                    ["CollectorNumber"] = new AttributeValue { N = card.CollectorNumber.ToString() },
-                    ["Rarity"] = new AttributeValue { S = card.Rarity },
-                    ["Price"] = new AttributeValue { N = card.Price.ToString() },
-                    ["ImageUrl"] = new AttributeValue { S = card.ImageUrl },
-                    ["Description"] = new AttributeValue { S = card.Description },
-                    ["CreatedAt"] = new AttributeValue { S = card.CreatedAt.ToString("o") },
-                    ["UpdatedAt"] = new AttributeValue { S = card.UpdatedAt.ToString("o") }
-                };
                 await context.SaveAsync(card);
             }
             logger.LogInformation("Successfully seeded {Count} test cards", testCards.Count);

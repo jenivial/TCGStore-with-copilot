@@ -37,6 +37,13 @@ fi
 echo "📁 Navigating to Terraform directory: $TERRAFORM_DIR"
 cd "$TERRAFORM_DIR"
 
+# Validate Terraform dev configuration exists
+if [ ! -f "terraform.dev.tfvars" ]; then
+    echo "❌ Terraform dev configuration file 'terraform.dev.tfvars' not found."
+    echo "   Please create 'terraform.dev.tfvars' with the necessary variables for local development."
+    exit 1
+fi
+
 # Destroy Terraform infrastructure
 echo "🗑️  Destroying Terraform resources with terraform.dev.tfvars..."
 terraform destroy -var-file="terraform.dev.tfvars" -auto-approve

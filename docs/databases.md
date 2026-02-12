@@ -17,7 +17,7 @@ TCGStore uses a **hybrid AWS database architecture** to balance transactional in
 - Card catalog (primary source of truth)
 
 **Configuration**:
-- Table: `Cards` (partition key: `Id`)
+- Table: `cards` (partition key: `Id`)
 - Provisioned throughput: Configurable for local/dev
 - Backup: On-demand and point-in-time recovery available
 

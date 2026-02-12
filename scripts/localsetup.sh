@@ -26,6 +26,12 @@ if ! command -v dotnet &> /dev/null; then
     exit 1
 fi
 
+# Check if AWS CLI is installed
+if ! command -v aws &> /dev/null; then
+    echo "❌ AWS CLI is not installed. Please install AWS CLI first."
+    exit 1
+fi
+
 # Check if AWS credentials are configured
 if ! aws sts get-caller-identity &>/dev/null 2>&1; then
     echo "⚠️  WARNING: AWS credentials are not configured."
@@ -48,6 +54,13 @@ cd "$TERRAFORM_DIR"
 # Initialize Terraform (safe to run multiple times)
 echo "🔧 Initializing Terraform..."
 terraform init
+
+# Validate Terraform dev configuration exists
+if [ ! -f "terraform.dev.tfvars" ]; then
+    echo "❌ Terraform dev configuration file 'terraform.dev.tfvars' not found."
+    echo "   Please create 'terraform.dev.tfvars' with the necessary variables for local development."
+    exit 1
+fi
 
 # Apply Terraform configuration with dev variables
 echo "🚀 Applying Terraform configuration with terraform.dev.tfvars..."
