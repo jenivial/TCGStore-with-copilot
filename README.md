@@ -1,8 +1,12 @@
-# TCGStore API
+# TCGStore
 
-A .NET 10.0 Web API for managing a Trading Card Game store backend, built with feature-based architecture.
+A full-stack Trading Card Game store application with a .NET 10.0 Web API backend and Next.js frontend, built with **Vertical Slice Architecture**.
 
 ## Project Structure
+
+The project consists of two main applications:
+
+### Backend API (TCGStore.Api)
 
 The API follows a **Vertical Slice Architecture** where each feature owns its own domain, API handlers, and persistence:
 
@@ -47,6 +51,35 @@ TCGStore.Api/
 │       └── Data/                   # Shared data initialization
 ├── Program.cs                      # Application entry point
 └── appsettings*.json              # Configuration files
+```
+
+### Frontend (TCGStore.Front)
+
+A Next.js application organized by feature slices aligned with backend:
+
+```
+TCGStore.Front/
+├── src/
+│   ├── app/                        # Next.js app router
+│   │   ├── cards/                  # Cards feature pages
+│   │   │   ├── page.tsx           # Cards list page
+│   │   │   └── [id]/
+│   │   │       └── page.tsx       # Card details page
+│   │   ├── api/                    # API routes (optional)
+│   │   ├── layout.tsx              # Root layout
+│   │   └── page.tsx                # Home page
+│   ├── slices/                     # Feature slices
+│   │   ├── cards/                  # Cards slice
+│   │   │   ├── handlers/           # API client handlers
+│   │   │   └── ui/
+│   │   │       └── components/     # React components
+│   │   ├── catalog/                # Catalog slice
+│   │   └── orders/                 # Orders slice
+│   └── types/                      # Shared TypeScript types
+│       └── index.ts
+├── next.config.js                  # Next.js configuration
+├── tsconfig.json                   # TypeScript configuration
+└── package.json                    # Dependencies
 ```
 
 ## Features
@@ -128,6 +161,18 @@ Then run the API:
 dotnet run --project TCGStore.Api
 ```
 
+The API will run on `http://localhost:5005`.
+
+### Running the Frontend
+
+```bash
+cd TCGStore.Front
+npm install
+npm run dev
+```
+
+The frontend will run on `http://localhost:3000` and connect to the API.
+
 ### Cleanup
 
 To clean up your local development environment (destroys Terraform resources and clears secrets):
@@ -143,21 +188,37 @@ This script will:
 
 ### Development
 
-To run in watch mode (auto-reload on changes):
+**Backend** - Run in watch mode (auto-reload on changes):
 ```bash
+cd TCGStore.Api
 dotnet watch run
+```
+
+**Frontend** - Run in development mode:
+```bash
+cd TCGStore.Front
+npm run dev
 ```
 
 ### Building
 
+**Backend:**
 ```bash
 dotnet build
+```
+
+**Frontend:**
+```bash
+cd TCGStore.Front
+npm run build
 ```
 
 ## Architecture
 
 ### Vertical Slice Architecture
-The project uses **Vertical Slice Architecture** where each feature slice owns its:
+The project uses **Vertical Slice Architecture** across both backend and frontend where each feature slice owns its:
+
+**Backend (TCGStore.Api):**
 - **Models** - Domain entities
 - **Controllers** - API endpoints
 - **Services** - Business logic
@@ -165,7 +226,13 @@ The project uses **Vertical Slice Architecture** where each feature slice owns i
 - **Requests** - DTOs for incoming data
 - **Persistence** - Data access layer (repositories)
 
-Each slice is located in `Features/<SliceName>/` with cross-cutting concerns in `Shared/`
+**Frontend (TCGStore.Front):**
+- **Handlers** - API client logic
+- **UI Components** - React components
+- **Pages** - Next.js route pages
+- **Types** - TypeScript interfaces
+
+Each backend slice is located in `TCGStore.Api/Features/<SliceName>/` and each frontend slice in `TCGStore.Front/src/slices/<sliceName>/` with cross-cutting concerns in `Shared/`
 
 ### Feature Slices
 - **Cards** - Card catalog management with DynamoDB persistence
