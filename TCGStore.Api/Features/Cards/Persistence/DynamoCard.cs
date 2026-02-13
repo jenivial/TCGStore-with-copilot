@@ -24,6 +24,11 @@ public static class DynamoCardExtensions
 {
     public static DynamoCard ToDynamoCard(this Card card)
     {
+        if (card == null)
+        {
+            throw new ArgumentNullException(nameof(card));
+        }
+
         return new DynamoCard
         {
             Id = card.Id,
@@ -42,6 +47,11 @@ public static class DynamoCardExtensions
 
     public static Card ToCard(this DynamoCard dynamoCard)
     {
+        if (dynamoCard == null) 
+        {
+            return null;
+        }
+
         return new Card
         {
             Id = dynamoCard.Id,
